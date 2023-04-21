@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './BudgetTable.css';
 
 const BudgetTable = () => {
     const [storeBudgets, setStoreBudgets] = useState<string[][]>(
@@ -26,13 +27,18 @@ const BudgetTable = () => {
             .filter((budget) => budget !== '')
             .reduce((acc, curr) => acc + parseFloat(curr), 0);
 
+    const grandTotal = storeBudgets
+        .flatMap((store) => store)
+        .filter((budget) => budget !== '')
+        .reduce((acc, curr) => acc + parseFloat(curr), 0);
+
     return (
         <table>
             <thead>
             <tr>
-                <th>Store</th>
+                <th>All Stores</th>
                 {Array.from({ length: 12 }, (_, index) => (
-                    <th key={index}>Month {index + 1}</th>
+                    <th className="fw-bolder" key={index}>Month {index + 1}</th>
                 ))}
                 <th>Total</th>
             </tr>
@@ -40,7 +46,7 @@ const BudgetTable = () => {
             <tbody>
             {storeBudgets.map((store, storeIndex) => (
                 <tr key={storeIndex}>
-                    <td>Store {storeIndex + 1}</td>
+                    <td width={"130px"} className="fw-bolder">Store {storeIndex + 1}</td>
                     {store.map((budget, monthIndex) => (
                         <td key={monthIndex}>
                             <input
@@ -65,6 +71,7 @@ const BudgetTable = () => {
                 {Array.from({ length: 12 }, (_, monthIndex) => (
                     <td key={monthIndex}>{monthTotal(monthIndex)}</td>
                 ))}
+                <td>{grandTotal}</td>
             </tr>
             </tbody>
         </table>

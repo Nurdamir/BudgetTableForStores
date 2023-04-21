@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import BudgetTable from "./BudgetTable";
+import Main from "./Main";
 
 function App() {
   return (
     <div className="App">
-      <BudgetTable/>
+      <Main/>
     </div>
   );
 }
