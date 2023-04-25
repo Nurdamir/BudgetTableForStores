@@ -5,7 +5,7 @@ class Main extends Component {
     render() {
         return (
             <>
-                <p className="fs-1 p-2">Расчет бюджета для магазинов!</p>
+                <span className="fs-1 p-3 bg-warning rounded-2">Расчет бюджета для магазинов!</span>
                 <BudgetTable/>
             </>
         );

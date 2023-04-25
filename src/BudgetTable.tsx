@@ -43,7 +43,13 @@ const BudgetTable = () => {
         .filter((budget) => budget !== '')
         .reduce((acc, curr) => acc + parseFloat(curr), 0);
 
+    const handleClearData = () => {
+        setStoreBudgets(Array.from({length: 12}, () => Array.from({length: 12}, () => '')));
+        localStorage.removeItem('storeBudgets');
+    };
+
     return (
+        <>
         <table>
             <thead>
             <tr>
@@ -96,7 +102,13 @@ const BudgetTable = () => {
                 <td className="fw-bold fs-1">{grandTotal}</td>
             </tr>
             </tbody>
+
         </table>
+            <div className="d-flex justify-content-center">
+                <button className="p-3 btn btn-warning fs-4" onClick={handleClearData}>Очистить данные</button>
+            </div>
+
+        </>
     );
 };
 
