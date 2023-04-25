@@ -1,10 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './BudgetTable.css';
 
 const BudgetTable = () => {
     const [storeBudgets, setStoreBudgets] = useState<string[][]>(
-        Array.from({length: 12}, () => Array.from({length: 12}, () => ''))
+        () => {
+            const storedData = localStorage.getItem('storeBudgets');
+            if (storedData) {
+                return JSON.parse(storedData);
+            } else {
+                return Array.from({length: 12}, () => Array.from({length: 12}, () => ''));
+            }
+        }
     );
+
+    useEffect(() => {
+        localStorage.setItem('storeBudgets', JSON.stringify(storeBudgets));
+    }, [storeBudgets]);
 
     const handleStoreBudgetChange = (
         storeIndex: number,
@@ -59,6 +70,8 @@ const BudgetTable = () => {
                     {store.map((budget, monthIndex) => (
                         <td className="fw-bolder fs-2" key={monthIndex}>
                             <input
+                                className="p-2"
+
                                 type="number"
                                 value={budget}
                                 onChange={(event) =>
